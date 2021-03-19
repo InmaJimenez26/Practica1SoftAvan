@@ -25,7 +25,7 @@ public class VistaElementos extends JPanel{
 	private JButton botonConsulta;
 	
 	public VistaElementos() {
-		//paneles
+		//paneles que voy a utilizar
 		JPanel PrimerPanel = new JPanel();
 		PrimerPanel.setLayout(new GridLayout(3,1));
 		JPanel SegundoPanel = new JPanel();

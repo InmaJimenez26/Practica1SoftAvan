@@ -2,8 +2,7 @@ package interfaz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 import blast.BlastController;
@@ -16,7 +15,6 @@ public class Eventos implements ActionListener{
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-	//	elementos.reiniciarVentana();
 		boolean correcto = true;
 		//secuencia
 		String secuencia = "";
@@ -27,13 +25,19 @@ public class Eventos implements ActionListener{
 			mostrarError("Especifique la secuencia a buscar");
 			correcto = false;
 		}
-		if (correcto &secuencia.equals("")) {
+		if (correcto & secuencia.equals("")) {
 			mostrarError("No ha introducido la secuencia a buscar");
 			correcto = false;
 		}
-		else if (!buscar(secuencia)) {
-			elementos.getSecuencia().addItem(secuencia);
+		else if (secCorrecta(secuencia) & !buscar(secuencia)) {
+			correcto = false;
+			mostrarError("Secuencia no encontrada");
 		}
+		else if(!secCorrecta(secuencia)) {
+			correcto = false;
+			mostrarError("Formato de secuencia no válido");
+		}
+		
 		//porcentaje
 		String porc = null;
 		float porcentaje = -1;
@@ -67,26 +71,40 @@ public class Eventos implements ActionListener{
 			}
 		}
 		else if(elementos.getNucleotido().isSelected()) {
-			resultado = "Aún no podemos buscar nucleótidos";
+			mostrarError("Aún no podemos buscar nucleótidos");
 		}
 		elementos.getResultado().setText(resultado);
 	}
 
-	private boolean buscar(String secuencia) {
-		boolean res = false;
-		for (int i=0; i<elementos.getSecuencia().getItemCount(); i++) {
-			if(elementos.getSecuencia().getItemAt(i).equals(secuencia)) {
-				res = true;
+	private boolean secCorrecta(String secuencia) {
+		boolean correcta = true;
+		for (int i = 0; i < secuencia.length(); i++) {
+			char l = secuencia.charAt(i);
+			String letra = Character.toString(l);
+			if (!letra.equalsIgnoreCase("a") & !letra.equalsIgnoreCase("g")&
+					!letra.equalsIgnoreCase("c")&!letra.equalsIgnoreCase("t")){
+				correcta = false;
 			}
 		}
-		return res;
+		return correcta;
 	}
 
-	private void mostrarError(String string) {
-		JDialog d = new JDialog();
-		d.add(new JLabel(string));
-		d.setSize(250,100);
-		d.setVisible(true);
+	private boolean buscar(String secuencia) {
+		boolean result = false;
+		for (int i = 0; i < elementos.getSecuencia().getItemCount(); i++) {
+			if(elementos.getSecuencia().getItemAt(i).equals(secuencia)) {
+				result = true;
+			}
+		}
+		return result;
+	}
+
+	private void mostrarError(String error) {
+		JFrame mensaje = new JFrame();
+		JLabel contenido = new JLabel(error);
+		mensaje.add(contenido);
+		mensaje.pack();
+		mensaje.setVisible(true);
 		
 	}
 }
