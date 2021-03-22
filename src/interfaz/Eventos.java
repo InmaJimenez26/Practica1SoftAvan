@@ -29,13 +29,8 @@ public class Eventos implements ActionListener{
 			mostrarError("No ha introducido la secuencia a buscar");
 			correcto = false;
 		}
-		else if (secCorrecta(secuencia) & !buscar(secuencia)) {
-			correcto = false;
-			mostrarError("Secuencia no encontrada");
-		}
-		else if(!secCorrecta(secuencia)) {
-			correcto = false;
-			mostrarError("Formato de secuencia no válido");
+		else if (!yaBuscada(secuencia)) {
+			elementos.getSecuencia().addItem(secuencia);
 		}
 		
 		//porcentaje
@@ -58,7 +53,7 @@ public class Eventos implements ActionListener{
 			mostrarError("Porcentaje fuera de rango");
 			correcto = false;
 		}
-		//
+		//resultado
 		BlastController cnt = new BlastController();
 		String resultado = "";
 		if (elementos.getProteina().isSelected() & correcto) {
@@ -73,23 +68,13 @@ public class Eventos implements ActionListener{
 		else if(elementos.getNucleotido().isSelected()) {
 			mostrarError("Aún no podemos buscar nucleótidos");
 		}
+		
 		elementos.getResultado().setText(resultado);
+		
+		
 	}
 
-	private boolean secCorrecta(String secuencia) {
-		boolean correcta = true;
-		for (int i = 0; i < secuencia.length(); i++) {
-			char l = secuencia.charAt(i);
-			String letra = Character.toString(l);
-			if (!letra.equalsIgnoreCase("a") & !letra.equalsIgnoreCase("g")&
-					!letra.equalsIgnoreCase("c")&!letra.equalsIgnoreCase("t")){
-				correcta = false;
-			}
-		}
-		return correcta;
-	}
-
-	private boolean buscar(String secuencia) {
+	private boolean yaBuscada(String secuencia) {
 		boolean result = false;
 		for (int i = 0; i < elementos.getSecuencia().getItemCount(); i++) {
 			if(elementos.getSecuencia().getItemAt(i).equals(secuencia)) {
