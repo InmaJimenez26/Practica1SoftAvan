@@ -1,6 +1,5 @@
 package interfaz;
 
-
 import java.awt.GridLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -90,7 +89,7 @@ public class VistaElementos extends JPanel{
 		QuintoPanel.add(identificadores);
 		
 		//Text area del resultado con scrollpane
-		result = new JTextArea(30,70);
+		result = new JTextArea(40,60);
 		result.setEditable(true);
 		JScrollPane scroll = new JScrollPane(result);
 				
@@ -115,24 +114,17 @@ public class VistaElementos extends JPanel{
 		return baseDatos;
 	}
 	public JComboBox<String> getIdentificadores() {
-		
 		return identificadores;
 	}
 	public JRadioButton getNucleotido() {
-		
 		return nucleotido;
 	}
 	public JTextArea getResultado() {
 		return result;
-		
 	}
 	public JButton getConsultar() {
 		return botonConsulta;
-		
 	}
 
-	//public void reiniciarVentana() {
-	//	secuenciaConsulta.setBackground();
-	//}
 	
 }

@@ -67,11 +67,8 @@ public class Eventos implements ActionListener{
 		}
 		else if(elementos.getNucleotido().isSelected()) {
 			mostrarError("Aún no podemos buscar nucleótidos");
-		}
-		
-		elementos.getResultado().setText(resultado);
-		
-		
+		}	
+		elementos.getResultado().setText(resultado);		
 	}
 
 	private boolean yaBuscada(String secuencia) {
